@@ -10,9 +10,9 @@ import { WebrtcService } from '../services/webrtc.service';
 export class HomeComponent implements OnInit {
 
   @ViewChild("me") me : any;
-  stream = "";
+ 
   public constraints : any =  {
-    audio: true,
+    audio: false,
     video: true
   };
 
@@ -21,10 +21,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(){
-    navigator.mediaDevices
-    .getUserMedia(this.constraints)
-    .then(stream => (this.me.nativeElement.srcObject = stream));
-//    .then(stream => this.pc.addStream(stream));
+    this.webrtc.showUser(this.me);
   }
 
   //https://www.codeproject.com/Articles/1194400/%2FArticles%2F1194400%2FWebRTC-using-Angular-and-AngularFire

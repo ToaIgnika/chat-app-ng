@@ -4,22 +4,31 @@ import adapter from 'webrtc-adapter';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class WebrtcService {
-  public stream : any;
+
   public constraints : any =  {
-    audio: true,
+    audio: false,
     video: true
   };
+
+  
   constructor() { }
 
-  getUserMedia() {
+  showUser(videoObject) {
     try {
-      this.stream = navigator.mediaDevices.getUserMedia(this.constraints);
-      console.log("success: " + this.stream );
-      //e.target.disabled = true;
+      navigator.mediaDevices
+      .getUserMedia(this.constraints)
+      .then(stream => (videoObject.nativeElement.srcObject = stream));
+  //    .then(stream => this.pc.addStream(stream));
     } catch (e) {
       //handleError(e);
       console.log(e);
     }  
+  }
+
+  showRemote() {
+
   }
 }
